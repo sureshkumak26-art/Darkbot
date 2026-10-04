@@ -8,6 +8,10 @@ const {
 const required = ['DISCORD_TOKEN', 'CLIENT_ID', 'GUILD_ID'];
 for (const key of required) if (!process.env[key]) throw new Error(`Missing environment variable: ${key}`);
 
+const { startMonitor } = require('./monitor');
+const config = require('./config');
+const products = require('./products');
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const CLEANUP_DELAY_MS = Number(process.env.TICKET_CLEANUP_DELAY_MS || 86400000);
 const names = {
@@ -87,7 +91,7 @@ async function createTicket(interaction, type) {
   return interaction.reply({ content: `✅ Your ticket is ready: ${ticket}`, ephemeral: true });
 }
 
-client.once('ready', async () => { console.log(`Logged in as ${client.user.tag}`); await registerCommands(); console.log('Commands registered.'); });
+client.once('ready', async () => { console.log(`Logged in as ${client.user.tag}`); await registerCommands(); console.log('Commands registered.'); startMonitor({products,config,client}); });
 
 client.on('interactionCreate', async interaction => {
   try {
