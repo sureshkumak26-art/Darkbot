@@ -1,0 +1,13 @@
+require('dotenv').config();
+module.exports={
+ token:process.env.DISCORD_TOKEN,
+ clientId:process.env.CLIENT_ID,
+ guildId:process.env.GUILD_ID,
+ staffRoleId:process.env.STAFF_ROLE_ID,
+ ticketCategoryId:process.env.TICKET_CATEGORY_ID,
+ productChannelId:process.env.PRODUCT_CHANNEL_ID,
+ monitorEnabled:process.env.MONITOR_ENABLED==='true',
+ monitorUrl:process.env.MONITOR_URL||'https://nexaresell.store/',
+ monitorIntervalSeconds:Number(process.env.MONITOR_INTERVAL_SECONDS||300),
+ restockAnnounceChannelId:process.env.RESTOCK_ANNOUNCE_CHANNEL_ID
+};
